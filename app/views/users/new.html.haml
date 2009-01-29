@@ -1,0 +1,22 @@
+%h1 Register for a New Account, yo
+
+= form_for(@user, :action => resource(:users) ) do
+  .table
+    .row
+      %p.cell Username:
+      %p.cell= text_field :username, :class => "formtext"
+    .row
+      %p.cell Password:
+      %p.cell= password_field :password, :class => "formtext"
+    .row
+      %p.cell Password (again):
+      %p.cell= password_field :password_confirmation, :class => "formtext"
+    .row
+      %p.cell Real Name:
+      %p.cell= text_field :real_name, :class => "formtext"
+    .row
+      %p.cell Email Address:
+      %p.cell= text_field :email, :class => "formtext"
+    .row
+      %p.cell= submit "Create", :class => "button"
+

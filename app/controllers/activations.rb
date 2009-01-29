@@ -15,6 +15,16 @@ class MerbAuthSliceManaged::Activations <  MerbAuthSliceManaged::Application
     ""
   end
 
+  def resend
+    if params[:email]
+      @user = User.first(:email => params[:email])
+      @user.send_signup_notification
+      render( {:template => "users/resent"} )
+    else
+      render
+    end
+  end
+
   private
 
   def redirect_after_activation

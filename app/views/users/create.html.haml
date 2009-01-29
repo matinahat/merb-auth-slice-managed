@@ -1,0 +1,11 @@
+%h1 Account Created
+
+%p
+  Your account,
+  = succeed ',' do
+    %i= @user.username
+  was successfully created.
+
+%p
+  %b NOTE:
+  Please check your email for an activation messages and follow the instructions.

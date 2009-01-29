@@ -1,0 +1,9 @@
+%h1 Lost password
+= error_messages_for(session.authentication, {:header => ""})
+
+= form :action => '/password/lost' do
+  %p
+    Search:
+    = text_field :name => 'email', :class => 'formtext'
+  %p
+    = submit "Reset", :class => "button"

@@ -1,0 +1,8 @@
+%h1 Resend activation email
+
+= form :action => '/resend' do
+  %p
+    Search:
+    = text_field :name => 'email', :class => 'formtext'
+  %p
+    = submit "Resend", :class => "button"

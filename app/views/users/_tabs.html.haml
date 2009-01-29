@@ -1,0 +1,17 @@
+%h1
+  Welcome 
+  = @user.real_name
+
+#profiletabs
+  - if action_name == 'index'
+    .tabtop.tab1
+  .tab.tab1
+    = link_to 'Home', url(:home), :class => (action_name == 'index' ? 'on' : '')
+  - if action_name == 'edit'
+    .tabtop.tab2
+  .tab.tab2
+    = link_to 'Edit Profile', resource(@user, :edit), :class => (action_name == 'edit' ? 'on' : '')
+  - if action_name == 'contact'
+    .tabtop.tab3
+  .tab.tab3
+    = link_to 'Edit Contact Info', '', :class => (action_name == 'contact' ? 'on' : '')

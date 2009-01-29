@@ -37,6 +37,11 @@ if defined?(Merb::Plugins)
 
     # Initialization hook - runs before AfterAppLoads BootLoader
     def self.init
+
+     unless MerbAuthSlicePassword[:no_default_strategies]
+       ::Merb::Authentication.activate!(:default_password_form)
+     end
+
       # Actually check if the user is active 
       ::Merb::Authentication.after_authentication do |user, *rest|
         if user.respond_to?(:active?)
@@ -69,6 +74,11 @@ if defined?(Merb::Plugins)
       scope.match("/password/reset/:reset_code").to(:controller => "passwords", :action => "reset").name(:reset)
       scope.match("/password/lost").to(:controller => "passwords", :action => "lost").name(:lost)
       scope.match("/password/update").to(:controller => "passwords", :action => "update").name(:pwupdate)
+
+      scope.match("/login", :method => :get ).to(:controller => "/exceptions", :action => "unauthenticated").name(:login)
+      scope.match("/login", :method => :put ).to(:controller => "sessions", :action => "update"         ).name(:perform_login)
+      scope.match("/logout"                 ).to(:controller => "sessions",:action => "destroy"        ).name(:logout)
+
     end
 
   end
