@@ -4,16 +4,6 @@ class MerbAuthSliceManaged::Users <  MerbAuthSliceManaged::Application
     render
   end
 
-  def edit
-    @user = session[:user]
-
-    if @user.id.to_s == params[:id]
-      render
-    else
-      raise BadRequest
-    end
-  end
-
   def create
     @user = User.new(params[:user])
 
@@ -22,6 +12,16 @@ class MerbAuthSliceManaged::Users <  MerbAuthSliceManaged::Application
     else
       message[:error] = "Sorry, there was an error"
       render :new
+    end
+  end
+
+  def edit
+    @user = session[:user]
+
+    if @user.id.to_s == params[:id]
+      render
+    else
+      raise BadRequest
     end
   end
 

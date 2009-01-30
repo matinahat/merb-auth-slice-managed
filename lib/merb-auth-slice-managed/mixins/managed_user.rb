@@ -44,6 +44,23 @@ module Merb
           def make_key
             Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
           end
+
+
+          def encrypt(password, salt)
+                Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+          end
+
+          def authenticate(user, password)
+            @u = User.first(:username => user)
+
+            if @u && @u.authenticated?(password)
+               @u.update_attributes(:logged_in_at => Time.now)
+               @u
+            else
+              nil
+            end
+          end
+
         end # ClassMethods
 
         module InstanceMethods
@@ -118,6 +135,29 @@ module Merb
           def make_unlock_code
             self.unlock_code = self.class.make_key
           end
+
+            def authenticated?(password)
+              crypted_password == encrypt(password)
+            end
+
+            def encrypt(password)
+              self.class.encrypt(password, salt)
+            end
+                             
+            def password_required?
+              crypted_password.blank? || !password.blank?
+            end
+                                      
+            def encrypt_password
+              return if password.blank?
+              self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{username}--") if new_record?
+              self.crypted_password = encrypt(password)
+            end
+
+            def generate_magic_key
+              self.magic_key = Digest::SHA1.hexdigest("--#{email}--#{Time.now.to_s}--")
+            end
+          
 
           # Sends out the activation notification.
           # Used 'Welcome' as subject if +MaSM[:activation_subject]+ is not set.

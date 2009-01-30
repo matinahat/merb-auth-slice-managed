@@ -7,7 +7,7 @@ class MerbAuthSliceManaged::Passwords <  MerbAuthSliceManaged::Application
       request.session.authentication.errors.clear!
       request.session.authentication.errors.add("pwreset", "sorry, there was something wrong, generate another")
 
-      render( {:template => "users/lost"} )
+      render :lost
     else
       @user = session.user
 
@@ -15,7 +15,7 @@ class MerbAuthSliceManaged::Passwords <  MerbAuthSliceManaged::Application
       session[:user] = nil
       session[:pwru] = @user
 
-      render( {:template => "users/password"} )
+      render :password
     end
   end
 
@@ -24,7 +24,7 @@ class MerbAuthSliceManaged::Passwords <  MerbAuthSliceManaged::Application
       request.session.authentication.errors.clear!
       request.session.authentication.errors.add("pwreset", "sorry, there was something wrong, generate another")
 
-      render( {:template => "users/lost"} )
+      render :lost
     else
       @user = session[:pwru]
 
@@ -40,7 +40,7 @@ class MerbAuthSliceManaged::Passwords <  MerbAuthSliceManaged::Application
       else
         request.session.authentication.errors.clear!
         request.session.authentication.errors.add("pwreset", "sorry, there was something wrong")
-        render( {:template => "users/password"} )
+        render :password
       end
     end
   end
@@ -55,9 +55,8 @@ class MerbAuthSliceManaged::Passwords <  MerbAuthSliceManaged::Application
         @user.send_password_reset_notification
       end
 
-      render( {:template => "users/reset"} )
+      render :reset
     else
-      #render( {:template => "users/lost"} )
       render
     end
   end

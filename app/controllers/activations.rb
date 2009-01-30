@@ -19,7 +19,7 @@ class MerbAuthSliceManaged::Activations <  MerbAuthSliceManaged::Application
     if params[:email]
       @user = User.first(:email => params[:email])
       @user.send_signup_notification
-      render( {:template => "users/resent"} )
+      render :resent
     else
       render
     end
