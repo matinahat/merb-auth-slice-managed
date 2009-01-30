@@ -1,7 +1,5 @@
-= partial('users/tabs')
-
 .tab-group
-  %h2 Personal Information
+  %h2 User Information
 
   .table
     = form_for(@user, :action => resource(@user) ) do
@@ -10,91 +8,5 @@
         %p.cell
           = text_field :real_name, :class => 'formtext', :style => 'width: 200px;'
           &nbsp; &nbsp;
-          = check_box :name => 'publish', :label => 'Publish my profile', :checked => true
           = link_to ' ', '', :class => 'help'
           = submit 'Save'
-
-  %h2 Links
-  %form{:action => '/'}
-    .table
-      .row
-        %p.cell.right Homepage:
-        %p.cell
-          = text_field :name => 'homepage', :class => 'formtext', :style => 'width: 350px;'
-      .row
-        %p.cell.right Blog:
-        %p.cell
-          = text_field :name => 'blog', :class => 'formtext', :style => 'width: 350px;'
-
-  %br
-
-  %h2 Email Addresses
-  
-  #email-addrs.table
-    .row{:style => 'background-color: #b7cbe1;'}
-      %p.cell.header Primary
-      %p.cell.header Email Address
-          
-    .row.even
-      %p.cell.center
-        = radio_button :name => 'test', :checked => true
-      %p.cell
-        joe@aps.org
-        = link_to '', '', :class => 'delete', :title => 'Delete'
-    .row.odd
-      %p.cell.center
-        = radio_button :name => 'test', :checked => false
-      %p.cell
-        joe@ridge.aps.org
-        = link_to '', '', :class => 'delete', :title => 'Delete'
-    .row.even
-      %p.cell.center &nbsp;
-      %p.cell
-        %span{:style => 'color: #bbbbbb;'} joe.plumber@gmail.com
-        %span{:style => 'font-size: 0.8em'} (Requires Activation)
-        = link_to '', '', :class => 'delete', :title => 'Delete'
-        = link_to 'Resend Activation Email', '', :style => 'background: #eeeeee;', :title => 'Resend Activation Email'
-    .row.odd
-      %p.cell.center &nbsp;
-      %form{:action => '/'}
-        %p.cell
-          = text_field :name => 'email', :class => 'formtext'
-          %input.add{:type => 'image', :value => '', :style => 'width: 275px;'}
-  %br
-
-  %h2
-    My Papers
-    = link_to '&nbsp;', '', :class => 'edit'
-
-  #alerts
-    %div.row
-      %p.left
-        %b October 20, 2008:
-      %div.right
-        %p
-          = link_to 'Nature’s Microfluidic Transporter: Rotational Cytoplasmic Streaming at High Péclet Numbers', 'http://link.aps.org/abstract/PRL/v101/e178102'
-          %br/
-          Jan-Willem van de Meent, Idan Tuval
-          = succeed ',' do
-            = link_to ' ', '', :class => 'user', :title => "Idan Tuval's Profile"
-          and Raymond E. Goldstein 
-          = link_to ' ', '', :class => 'user', :title => "Raymond E. Goldstein's Profile"
-          %br
-          Phys. Rev. Lett.
-          %b 101,
-          178102
-          %br
-          Cited 11 times
-        %p
-          = link_to 'Reexamination of the Power Spectrum in De Sitter Inflation', 'http://link.aps.org/abstract/PRL/v101/e171301'
-          %br
-          Iván Agulló
-          = succeed ',' do
-            = link_to ' ', '', :class => 'user', :title => "Iván Agulló's Profile"
-          José Navarro-Salas, Gonzalo J. Olmo, and Leonard Parker 
-          %br
-          Phys. Rev. Lett.
-          %b 101,
-          171301
-          %br
-          Cited 1 time
