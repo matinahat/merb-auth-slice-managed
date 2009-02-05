@@ -25,7 +25,7 @@ module Merb
               property :password_reset_at,   DateTime
               property :password_reset_code, String
 
-              property :unlcoked_at,    DateTime
+              property :unlocked_at,    DateTime
               property :unlock_code, String
 
               # Validations
