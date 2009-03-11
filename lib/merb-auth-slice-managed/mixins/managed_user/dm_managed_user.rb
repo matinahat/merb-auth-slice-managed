@@ -5,6 +5,7 @@ module Merb
         module DMClassMethods
           def self.extended(base)
             base.class_eval do
+              include DataMapper::Timestamp
 
               property :magic_key,          String
               property :crypted_password,   String
@@ -25,7 +26,7 @@ module Merb
               property :password_reset_at,   DateTime
               property :password_reset_code, String
 
-              property :unlcoked_at,    DateTime
+              property :unlocked_at,    DateTime
               property :unlock_code, String
 
               # Validations

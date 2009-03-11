@@ -186,7 +186,12 @@ module Merb
           # Sends out the password reset notification.
           # Used 'Request to change your password' as subject if +MaSM[:password_reset_subject]+ is not set.
           def send_unlock_notification
-            deliver_password_reset_email(:password_reset, :subject => (MaSM[:password_reset_subject] || "Request to change your password"))
+            deliver_email(:password_reset, :subject => (MaSM[:password_reset_subject] || "Request to change your password"))
+          end
+
+          # Sends out the lost passwd notification
+          def send_lost_username_notification
+            deliver_email(:lost_username, :subject => (MaSM[:lost_username_subject] || "Your username"))
           end
 
           private

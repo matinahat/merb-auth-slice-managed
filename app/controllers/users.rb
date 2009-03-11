@@ -4,17 +4,6 @@ class MerbAuthSliceManaged::Users <  MerbAuthSliceManaged::Application
     render
   end
 
-  def create
-    @user = User.new(params[:user])
-
-    if @user.save
-      render
-    else
-      message[:error] = "Sorry, there was an error"
-      render :new
-    end
-  end
-
   def edit
     @user = session[:user]
 
@@ -25,7 +14,22 @@ class MerbAuthSliceManaged::Users <  MerbAuthSliceManaged::Application
     end
   end
 
+  def create
+    raise BadRequest unless params[:user]
+    
+    @user = User.new(params[:user])
+
+    if @user.save
+      render
+    else
+      message[:error] = "Sorry, there was an error"
+      render :new
+    end
+  end
+
   def update
+    raise BadRequest unless session[:user].id.to_s == params[:id]
+    
     @user = User.get(params[:id])
      if @user.update_attributes(params[:user])
        redirect url(:user, @user)
@@ -34,7 +38,7 @@ class MerbAuthSliceManaged::Users <  MerbAuthSliceManaged::Application
      end
   end
 
-  def delete
+  def destroy
     @user = session[:user]
 
     if @user.id.to_s == params[:id] && @user.destroy
