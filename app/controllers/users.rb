@@ -31,7 +31,7 @@ class MerbAuthSliceManaged::Users <  MerbAuthSliceManaged::Application
     raise BadRequest unless session[:user].id.to_s == params[:id]
     
     @user = User.get(params[:id])
-     if @user.update_attributes(params[:user])
+     if @user.update(params[:user])
        redirect url(:user, @user)
      else
        raise BadRequest
@@ -48,4 +48,20 @@ class MerbAuthSliceManaged::Users <  MerbAuthSliceManaged::Application
       "we're not quite ready to destroy you yet. try again later!"
     end
   end
+
+  def lost
+    if params[:email]
+  
+      @user = User.first(:email => params[:email])
+
+      if @user
+        @user.send_lost_username_notification
+      end
+
+      render :sent
+    else
+      render
+    end
+  end
+
 end

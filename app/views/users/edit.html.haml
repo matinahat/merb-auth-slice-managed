@@ -2,7 +2,7 @@
   %h2 User Information
 
   .table
-    = form_for(@user, :action => resource(@user) ) do
+    = form_for(@user, :action => url(:updateaccount) ) do
       .row
         %p.cell Display Name:
         %p.cell

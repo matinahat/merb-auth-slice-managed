@@ -47,14 +47,15 @@ module Merb
 
 
           def encrypt(password, salt)
-                Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+            # Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+            Digest::SHA1.hexdigest(password)
           end
 
           def authenticate(user, password)
             @u = User.first(:username => user)
 
             if @u && @u.authenticated?(password)
-               @u.update_attributes(:logged_in_at => Time.now)
+               @u.update(:logged_in_at => Time.now)
                @u
             else
               nil
@@ -67,7 +68,7 @@ module Merb
 
           # Activates and saves the user.
           def activate!
-            self.reload unless self.new_record? # Make sure the model is up to speed before we try to save it
+            self.reload unless self.new? # Make sure the model is up to speed before we try to save it
             set_activated_data!
             self.save
 
@@ -86,7 +87,7 @@ module Merb
 
           # Checks to see if a user is active
           def active?
-            return false if self.new_record?
+            return false if self.new?
             !! activation_code.nil?
           end
 
@@ -94,7 +95,7 @@ module Merb
 
           # Sets an r
           def mark_for_reset!
-            self.reload unless self.new_record? # Make sure the model is up to speed before we try to save it
+            self.reload unless self.new? # Make sure the model is up to speed before we try to save it
             make_password_reset_code
             self.save
 
@@ -103,7 +104,7 @@ module Merb
 
           # Sets an r
           def reset!
-            self.reload unless self.new_record? # Make sure the model is up to speed before we try to save it
+            self.reload unless self.new? # Make sure the model is up to speed before we try to save it
             self.password_reset_at = DateTime.now
             self.password_reset_code = nil
             self.save
@@ -150,7 +151,7 @@ module Merb
                                       
             def encrypt_password
               return if password.blank?
-              self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{username}--") if new_record?
+              self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{username}--") if new?
               self.crypted_password = encrypt(password)
             end
 

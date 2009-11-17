@@ -1,0 +1,9 @@
+%h1 Lost username
+= error_messages_for(request.session.authentication, {:header => ""})
+
+= form :action => url(:lostu) do
+  %p
+    Search:
+    = text_field :name => 'email', :class => 'formtext'
+  %p
+    = submit "Reset", :class => "button"

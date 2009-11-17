@@ -1,9 +1,11 @@
 %h1 Lost password
-= error_messages_for(session.authentication, {:header => ""})
+= error_messages_for(request.session.authentication, {:header => ""})
+%p== If you have forgotten your username and/or password, please enter your email below. 
+%p== An email will be sent with your username and a link that may be used to reset your password.
 
 = form :action => '/password/lost' do
   %p
-    Search:
+    Email address :
     = text_field :name => 'email', :class => 'formtext'
   %p
-    = submit "Reset", :class => "button"
+    = submit "", :class => "send-email-button"

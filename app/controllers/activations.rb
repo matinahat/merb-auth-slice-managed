@@ -12,6 +12,7 @@ class MerbAuthSliceManaged::Activations <  MerbAuthSliceManaged::Application
     if session.authenticated? && !session.user.activated?
       session.user.activate!
     end
+        
     ""
   end
 
@@ -28,7 +29,7 @@ class MerbAuthSliceManaged::Activations <  MerbAuthSliceManaged::Application
   private
 
   def redirect_after_activation
-    redirect "/", :message => {:notice => "Activation Successful"}
+    redirect url(:home), :message => {:notice => "Activation Successful"}
   end
 
 end # MerbAuthSliceManaged::Activations

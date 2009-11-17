@@ -1,5 +1,9 @@
-%h1 Password reset
+%h1 Email sent
+#mailed 
 
-%p
-  %b NOTE:
-  Please check your email and follow the instructions.
+  %p#flash= "Please check your email and follow the instructions. If you do not receive the email shortly, please try again or contact #{link_to "help@aps.org", "mailto:help@aps.org"}."
+  %h3== Possible reasons you may not receive the email include
+  %ul
+    %li== You may have one or more spam filters in place
+    %li== You may have entered in your email address incorrectly
+    %li== You may have entered in an email address that wasn't used to set up your account

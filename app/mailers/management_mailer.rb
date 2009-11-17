@@ -32,4 +32,10 @@ class MerbAuthSliceManaged::ManagementMailer < Merb::MailController
     Merb.logger.info "Sending unlock notification to #{@user.email}"
     render_mail :layout => nil
   end
+
+  def lost_username
+    @user = params[:user]
+    Merb.logger.info "Sending lost username notification to #{@user.email}"
+    render_mail :layout => nil
+  end
 end

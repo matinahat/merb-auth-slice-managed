@@ -24,13 +24,13 @@ class MerbAuthSliceManaged::Sessions < MerbAuthSliceManaged::Application
   # @overwritable
   def redirect_after_login
     message[:notice] = "Authenticated Successfully"
-    redirect_back_or "/", :message => message, :ignore => [slice_url(:login), slice_url(:logout)]
+    redirect_back_or url(:home), :message => message, :ignore => [slice_url(:login), slice_url(:logout)]
   end
   
   # @overwritable
   def redirect_after_logout
     message[:notice] = "Logged Out"
-    redirect "/", :message => message
+    redirect url(:home), :message => message
   end  
 
   # @private
